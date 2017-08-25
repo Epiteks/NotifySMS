@@ -67,12 +67,11 @@ def format_item(item):
     soup = BeautifulSoup(item["title"], "html.parser")
     links = []
     output = u"EPITECH\n-------\n{message}\n-----\nLiens:\n{links}"
-    message = None
+
     for link in soup.find_all("a"):
         links.append("[{index}]: {url}{link}".format(index=len(links) + 1, url=url, link=link.get("href")))
         link.replace_with("{string}[{index}]".format(string=link.string, index=len(links)))
-    for p in soup.find_all("p"):
-        message = p.getText()
+    message = soup.getText()
     return output.format(message=message, links="\n".join(links))
 
 
