@@ -41,7 +41,7 @@ $> crontab -e
 Then you need to add this (Based on how often you want to run it and where `NotifySMS` is located on your computer) :
 
 ````
-15 * * * * python3.5 $PATH_TO_NOTIFYSMS/main.py
+*/15 * * * * python3.5 $PATH_TO_NOTIFYSMS/main.py
 ````
 
 (Here, it will run every 15 minutes `NotifySMS`, which is at $PATH_TO_NOTIFYSMS` location)
