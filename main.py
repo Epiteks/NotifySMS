@@ -31,7 +31,7 @@ def get_history(token):
 def get_new_items(items):
 
     def _read():
-        with open("history.json", "r") as file_data:
+        with open("/tmp/history.json", "r") as file_data:
             parsed_data = json.load(file_data)
             return parsed_data["history"], int(parsed_data["last_id"])
 
@@ -45,7 +45,7 @@ def get_new_items(items):
             "last_id": last_id,
             "history": history
         }
-        with open("history.json", "w") as file_data:
+        with open("/tmp/history.json", "w") as file_data:
             json.dump(output_data, file_data)
 
     try:
