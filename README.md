@@ -1,16 +1,41 @@
 # NotifySMS
 
+[![](https://images.microbadger.com/badges/version/epiteks/notifysms.svg)](https://microbadger.com/images/epiteks/notifysms)
+
 🔔 ➡ 📱 Get Epitech notifications by SMS via Free Mobile
 
 ## How to use it ?
 
-#### Setup
+### Via Docker
+
+Via CLI :
+
+````bash
+$> docker run -d -e "SMS_LOGIN=login" -e "SMS_TOKEN=token" -e "EPITECH_MAIL=mail" -e "EPITECH_PWD=pwd" epiteks/notifysms
+````
+
+Via Docker Compose :
+````yaml
+notifysms:
+  image: epiteks/notifysms
+  environment:
+   - SMS_LOGIN
+   - SMS_TOKEN
+   - EPITECH_MAIL
+   - EPITECH_PWD
+  restart: always
+````
+
+### Local
 
 You need to set these variables into your environment :
+- NOTIFYSMS_DIR
 - SMS_LOGIN
 - SMS_TOKEN
 - EPITECH_MAIL
 - EPITECH_PWD
+
+`NOTIFYSMS_DIR` is the location of `NotifySMS` directory.
 
 `SMS_*` are used by [`freemobilesms`](https://github.com/hug33k/freemobilesms).
 You can get these infos in your [Free Mobile panel](https://mobile.free.fr/moncompte/)
@@ -19,6 +44,7 @@ You can get these infos in your [Free Mobile panel](https://mobile.free.fr/monco
 
 Example :
 ````bash
+export NOTIFYSMS_DIR=`pwd`
 export SMS_LOGIN=xxxxxxx
 export SMS_TOKEN=xxxxxxx
 export EPITECH_MAIL=login_x@epitech.eu
@@ -26,25 +52,20 @@ export SMS_TOKEN=unix_pwd
 ````
 
 Then you will need to install needed packages via [`pip`](https://pip.pypa.io/en/stable/installing/).
+
 ````bash
 $> pip install -r requirements.txt
 ````
 
-#### Let's run it
-
-You will have to add a line to your `crontab` config.
+If you want to execute this program regularly, you can use cron.
+Command is available in `crontab`[crontab].
 
 ````sh
-$> crontab -e
+$> crontab -l | cat - crontab | crontab -
 ````
 
-Then you need to add this (Based on how often you want to run it and where `NotifySMS` is located on your computer) :
-
-````
-*/15 * * * * python3.5 $PATH_TO_NOTIFYSMS/main.py
-````
-
-(Here, it will run every 15 minutes `NotifySMS`, which is at $PATH_TO_NOTIFYSMS` location)
+This configuration will ask cron to execute `NotifySMS` every 2 minutes.
+You can change it before execute this command.
 
 ## FAQ
 
@@ -58,7 +79,7 @@ But feel free to contribute !
 
 Unfortunately, we don't support OAuth with [Wrapitech](https://github.com/epiteks/wrapitech).
 
-Once again, feel free to contribute !`
+Once again, feel free to contribute !
 
 #### What is `history.json` ? Can I delete it ?
 
